@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/apichallenge.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="/stylesheets/circle.css" media="screen" />
 		
-		<title>Are they good... | timdayley</title>
+		<title>Are they good...</title>
 	</head>
 	<body>
 		<div class="header">

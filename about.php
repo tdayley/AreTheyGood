@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=Cp1252">
 		
-		<title>About | timdayley</title>
+		<title>About - Are they good...</title>
 	</head>
 	<body>
 		<div class="header">
@@ -26,6 +26,9 @@
 					<div class="content-section">
 						<div class="content-title">What does it do?</div>
 						<div class="content-text">
+						 	You can find the project and files at <a href="https://github.com/tdayley/AreTheyGood" target="about:blank">https://github.com/tdayley/AreTheyGood</a>
+						 	<br>
+						 	<br>
 							Are they good... is a web application that uses the League of Legends API (Application Programming Interface) to display champion 
 							mastery information for a desired summoner. All that you need to know is the summoner name and the region you are playing on! 
 							The application will search the live database to see if it already has any information on the summoner in question. If no data exists, 
@@ -67,7 +70,8 @@
 				</div>
 			</div>
 		</div>
-		
+			
+		<?php include('includes/apichallenge_footer.php'); ?>
 		
 		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css">

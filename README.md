@@ -21,6 +21,7 @@ Are they good... can be found at http://aretheygood.timdayley.com
 * Bootstrap - http://getbootstrap.com/
 * jQuery - https://jquery.com/
 * CSS Percentage Circle - http://circle.firchow.net/
+* Favicon generator - http://realfavicongenerator.net/
 * Riot Games API - https://developer.riotgames.com/
 * WampServer - http://www.wampserver.com/en/
 * Eclipse - http://www.eclipse.org/downloads/packages/eclipse-php-developers/mars2
@@ -46,7 +47,7 @@ doesn't need to spam the API with calls. There is also an option to refresh the 
 believe it to be outdated. Storing the champion mastery data, gives the site the power to call upon greater 
 statistical analysis the more it gets used. As more and more summoners are searched and the information stored, 
 the application can grow to be a giant data mine with the ability to query on multiple stats such as 
-the average score for a champion, the champion with the most points (arguably most used), and competitive  
+the average score for a champion, the champion with the most points (arguably most used), and competitive 
 analysis like the summoner with the most level 5 champions.
 
 Hopefully you enjoy using this application, and keep checking for future updates where improvements are 
@@ -60,15 +61,15 @@ project.
 
 If you want to load this project directly into your own environment there are a few things you will have to add.
 * A file named private_variables.php placed in the variables folder. This should include the following variables:
-	1. '$apiKey = "asdfasdf-1234-1234-1234-asdfasdf' <- this should match the api key obtained from Riot
-	2. '$serverName = "localhost";' <- this should match your server name
-	3. '$databaseName = "aretheygood";' <- this is your database, named however you see fit
-	4. '$username = "root";' <- the username you use to login to your database engine
-	5. '$password = "secretpassword";' <- the password you use to login to your database engine
-* Create a database to store the information in and make sure it matches the name you gave to the '$databaseName' variable.
-* Execute the 2 '.sql' files contained in the root of this project.
-	1. 'aretheygood_tables.sql' <- creates the tables needed to store the data obtained from the API calls
-	2. 'region_information.sql' <- execute this second, as it populates the region table with data
+	1. `$apiKey = "asdfasdf-1234-1234-1234-asdfasdf` <- this should match the api key obtained from Riot
+	2. `$serverName = "localhost";` <- this should match your server name
+	3. `$databaseName = "aretheygood";` <- this is your database, named however you see fit
+	4. `$username = "root";` <- the username you use to login to your database engine
+	5. `$password = "secretpassword";` <- the password you use to login to your database engine
+* Create a database to store the information in and make sure it matches the name you gave to the `$databaseName` variable.
+* Execute the 2 `.sql` files contained in the root of this project.
+	1. `aretheygood_tables.sql` <- creates the tables needed to store the data obtained from the API calls
+	2. `region_information.sql` <- execute this second, as it populates the region table with data
 
 ### Licensing
 

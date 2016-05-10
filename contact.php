@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=Cp1252">
 		
-		<title>Contact | timdayley</title>
+		<title>Contact - Are they good...</title>
 	</head>
 	<body>
 		<div class="header">
@@ -29,19 +29,20 @@
 					</div>
 					<form class="js-summoner-name-form" action="send_message.php" method="POST">
 						<div class="td-form-group">
-							<label class="td-form-label">Name</label>
+							<label class="td-form-label">Name (optional)</label>
 							<input class="td-form-control" type="text" name="queryName" placeholder="Your name" />
 						</div>
 						<div class="td-form-group">
 							<label class="td-form-label">Message</label>
-							<textarea class="td-form-control" name="queryMessage" placeholder="Enter message here"></textarea>
+							<textarea class="td-form-control" name="queryMessage" placeholder="Your message"></textarea>
 						</div>
 						<button class="td-form-button" type="submit">Send</button>
 					</form>
 				</div>
 			</div>
 		</div>
-		
+			
+		<?php include('includes/apichallenge_footer.php'); ?>
 		
 		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css">

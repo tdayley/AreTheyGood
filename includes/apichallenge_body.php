@@ -86,7 +86,7 @@
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
 							<div class="row">
 								<div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
-									<input id="summoner-name" type="text" name="summonerName" placeholder="Summoner Name" class="td-form-control" />
+									<input id="summoner-name" type="text" name="summonerName" placeholder="Summoner Name (e.g. Spacetoaster)" class="td-form-control" />
 								</div>
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
 									<button type="submit" name="SubmitButton" class="td-form-control">Search</button>
@@ -222,49 +222,36 @@
 	
 					$urlForImages = $url . "/" . $versionInfo[0] . "/img/champion/";
 					
-					$sql = "SELECT * FROM champion_information";
+					$sql = "SELECT DISTINCT(a.ChampionId), d.Name as ChampionName, e.Image, a.ChampionPoints, c.Name as SummonerName FROM champion_mastery a 
+							JOIN summoner_information c ON a.PlayerId = c.Id 
+							JOIN champion_information d on a.ChampionId = d.Id
+							JOIN champion_image e on d.Id = e.Id
+							WHERE a.ChampionPoints = (SELECT MAX(b.ChampionPoints) FROM champion_mastery b WHERE b.ChampionId = a.ChampionId) 
+							ORDER BY d.Name";
 					
 					$query = $conn->prepare($sql);
 					$query->execute();
-					$championData = $query->fetchAll(PDO::FETCH_CLASS, "Champion");
+					$championData = $query->fetchAll();
 					
-					$stack = array();
+					echo "<div class='center'>
+							<div class='top-summoner-container'>Top Summoners</div>";
+					
 					foreach($championData as $champion) 
 					{
-						array_push($stack, $champion);
+						$championId = $champion["ChampionId"];
+						$championName = $champion["ChampionName"];
+						$image = $champion["Image"];
+						$championPoints = $champion["ChampionPoints"];
+						$summonerName = $champion["SummonerName"];
+						
+						echo "<div class='champion-id'>
+								<img alt='$championName' class='logo' src=\"data:image/jpeg;base64," . base64_encode($image) . "\" />
+								<div class='top-summoner-name'>$summonerName</div>
+								<div class='top-summoner-points'>" . number_format($championPoints) . "</div>
+								</div>";
 					}
 					
-					function cmp($a, $b)
-					{
-					    return strcmp($a->getName(), $b->getName());
-					}
-					
-					usort($stack, "cmp");
-					
-					$sql = "SELECT Id, Image FROM champion_image";
-					
-					$query = $conn->prepare($sql);
-					$query->execute();
-					
-					$imageData = $query->fetchAll(PDO::FETCH_KEY_PAIR);
-					
-					foreach($stack as $champion) 
-					{
-						
-						$id = $champion->getId();
-						$name = $champion->getName();
-						$key = $champion->getChampionKey();
-						$title = $champion->getTitle();
-						
-						if(!array_key_exists($id, $imageData))
-						{
-							$imageUrl = $urlForImages . $key . ".png";
-							$imageData[$id] = AddChampionImage($conn, $id, $imageUrl);
-						}
-						
-						echo "<div class='champion-id' title=\"" . $name . ", " . $title . "\">
-								<img width='60px' alt='" . $name . "' src=\"data:image/jpeg;base64," . base64_encode($imageData[$id]) . "\" /></div>";
-					}
+					echo "</div>";
 	 				?>
 				</div>
 			</div>
