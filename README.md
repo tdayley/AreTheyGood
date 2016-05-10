@@ -38,7 +38,7 @@ This application came to be from my personal desire to quickly and efficiently v
 a particular champion. When I start a game of League of Legends, I normally look up the rank and previously 
 played games using one of the many websites already available. While this information is useful, the champion 
 mastery information gives you a direct link to the summoners skill and the champion in question. This way 
-you can adjust your gameplan as you see fit (maybe start Long Sword instead of Doran's?) depending on the summoner's 
+you can adjust your game plan as you see fit (maybe start Long Sword instead of Doran's?) depending on the summoner's 
 champion level.
 
 The unique aspect of this web application, is that it stores the data used in a local database so that it 
@@ -46,7 +46,7 @@ doesn't need to spam the API with calls. There is also an option to refresh the 
 believe it to be outdated. Storing the champion mastery data, gives the site the power to call upon greater 
 statistical analysis the more it gets used. As more and more summoners are searched and the information stored, 
 the application can grow to be a giant data mine with the ability to query on multiple stats such as 
-the average score for a champion, the champion with the most points (arguably most used), and competetive 
+the average score for a champion, the champion with the most points (arguably most used), and competitive  
 analysis like the summoner with the most level 5 champions.
 
 Hopefully you enjoy using this application, and keep checking for future updates where improvements are 
