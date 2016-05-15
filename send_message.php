@@ -3,6 +3,7 @@
 <?php
 	$message = $_POST["queryMessage"];
 	$name = $_POST["queryName"];
+	$email = $_POST["queryEmail"];
 	
 	if(!isset($message) || empty($message))
 	{
@@ -13,9 +14,9 @@
 	$headers = "MIME-Version: 1.0" . "\r\n";
 	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 	
-	$message = "<div>From: $name</div><br>" . $message;
-	mail("development@timdayley.com", "Message from Are they good...", $message, $headers);
+	$message = "<div>From: $name</div><div>Email: $email</div><br>" . $message;
+	mail("development@timdayley.com", "Message from \"Are they good...\"", $message, $headers);
 	
-	return Alert(AlertType::Success, "Message sent, thank you for the support");
+	return Alert(AlertType::Success, "Message sent, thank you for your support");
 	exit;
 ?>

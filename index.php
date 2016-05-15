@@ -19,7 +19,8 @@
 			</div>
 			<div class="header-title">
 				<div class="header-links">
-					<a href="/about.php">About</a>
+					<a href="/">Home</a>
+					<a class="margin-left-20" href="/about.php">About</a>
 					<a class="margin-left-20" href="/contact.php">Contact</a>
 				</div>
 				<div class="main-title">Are they good...</div>
