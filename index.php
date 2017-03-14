@@ -15,7 +15,8 @@
 	<body>
 		<div class="header">
 			<div class="header-image">
-				<img alt="Are they good" src="/images/AreTheyGoodLogo.png" class="logo" />
+				<img class="logo" src="/images/AreTheyGoodLogo_Small.png" 
+					srcset="images/AreTheyGoodLogo_Large.png 1024w, images/AreTheyGoodLogo_Medium.png 640w, images/AreTheyGoodLogo_Small.png 320w" alt="Are they good" />
 			</div>
 			<div class="header-title">
 				<div class="header-links">
