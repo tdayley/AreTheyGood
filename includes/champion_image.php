@@ -45,18 +45,16 @@
 		return base64_encode($imageContents);
 	}
 	
-	function GetChampionImageUrl($championKey, $apiKey) 
+	function GetChampionImageUrl($conn, $championKey) 
 	{
-		$realmUrl = GetStaticInfoUrl("realm", "na", $apiKey);
-		$realmInfo = GetApiResults($realmUrl);
-			
-		$versionUrl = GetStaticInfoUrl("versions", "na", $apiKey);
-		$versionInfo = GetApiResults($versionUrl);
+		$sql = "SELECT Version, Url FROM realm_version WHERE Id = (SELECT MAX(Id) FROM realm_version)";
+					
+		$query = $conn->prepare($sql);
+		$query->execute();
+		$realmInfo = $query->fetchAll();
 		
-		$currentVersion = $versionInfo["json"][0];
-		$url = $realmInfo["json"]["cdn"];
+		$urlForImages = $realmInfo[0]["Url"] . "/" . $realmInfo[0]["Version"] . "/img/champion/";
 		
-		$urlForImages = $url . "/" . $currentVersion . "/img/champion/";
 		return $urlForImages . $championKey . ".png";
 	}
 ?>

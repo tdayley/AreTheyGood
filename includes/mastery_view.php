@@ -49,7 +49,7 @@
 			
 			$championLevel = $mastery->getChampionLevel();
 			
-			$html = str_replace("@image", GetChampionImageUrl($mastery->getChampionKey(), $apiKey), $html);
+			$html = str_replace("@image", GetChampionImageUrl($conn, $mastery->getChampionKey()), $html);
 			$html = str_replace("@championLevel", $mastery->getChampionLevel(), $html);
 			$html = str_replace("@championPoints", number_format($mastery->getChampionPoints()), $html);
 			if($championLevel != 7)
