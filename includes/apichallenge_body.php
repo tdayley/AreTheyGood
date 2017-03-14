@@ -208,7 +208,8 @@
 					$query->execute();
 					$averageData = $query->fetchAll();
 					
-					$sql = "SELECT a.ChampionId, d.Name as ChampionName, e.Image, a.ChampionPoints, c.Name as SummonerName FROM champion_mastery a 
+					$sql = "SELECT a.ChampionId, d.Name as ChampionName, e.Image, a.ChampionPoints, c.Name as SummonerName, d.ChampionKey 
+							FROM champion_mastery a 
 							JOIN summoner_information c ON a.PlayerId = c.Id 
 							JOIN champion_information d on a.ChampionId = d.Id
 							JOIN champion_image e on d.Id = e.Id
@@ -226,7 +227,7 @@
 					{
 						$championId = $champion["ChampionId"];
 						$championName = $champion["ChampionName"];
-						$image = $champion["Image"];
+						$image = $url . "/" . $currentVersion . "/img/champion/" . $champion["ChampionKey"] . ".png";
 						$championPoints = $champion["ChampionPoints"];
 						$summonerName = $champion["SummonerName"];
 						
@@ -241,7 +242,7 @@
 						}
 						
 						echo "<div class='champion-id'>
-								<img alt='$championName' class='logo' src=\"data:image/jpeg;base64," . base64_encode($image) . "\" />
+								<img alt='$championName' class='logo' src=\"" . $image . "\" />
 								<div class='top-summoner-name' title='$summonerName'>$summonerName</div>
 								<div class='top-summoner-points'>" . number_format($championPoints) . "</div>
 								<hr class='top-summoner-break'>

@@ -44,4 +44,19 @@
 	
 		return base64_encode($imageContents);
 	}
+	
+	function GetChampionImageUrl($championKey, $apiKey) 
+	{
+		$realmUrl = GetStaticInfoUrl("realm", "na", $apiKey);
+		$realmInfo = GetApiResults($realmUrl);
+			
+		$versionUrl = GetStaticInfoUrl("versions", "na", $apiKey);
+		$versionInfo = GetApiResults($versionUrl);
+		
+		$currentVersion = $versionInfo["json"][0];
+		$url = $realmInfo["json"]["cdn"];
+		
+		$urlForImages = $url . "/" . $currentVersion . "/img/champion/";
+		return $urlForImages . $championKey . ".png";
+	}
 ?>

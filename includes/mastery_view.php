@@ -9,7 +9,7 @@
 		"<div class='mastery-container'>
 		  <div class='inline-block valign-middle'>
 		    <div>
-		      <img src='data:image/jpeg;base64,@image' />
+		      <img src='@image' />
 		    </div>
 		  </div>
 		
@@ -49,7 +49,7 @@
 			
 			$championLevel = $mastery->getChampionLevel();
 			
-			$html = str_replace("@image", GetChampionImage($conn, $mastery->getChampionId(), $mastery->getChampionKey(), $apiKey), $html);
+			$html = str_replace("@image", GetChampionImageUrl($mastery->getChampionKey(), $apiKey), $html);
 			$html = str_replace("@championLevel", $mastery->getChampionLevel(), $html);
 			$html = str_replace("@championPoints", number_format($mastery->getChampionPoints()), $html);
 			if($championLevel != 7)
