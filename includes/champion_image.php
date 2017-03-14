@@ -1,5 +1,5 @@
 <?php
-	function GetChampionImage($conn, $championId)
+	function GetChampionImage($conn, $championId, $championKey, $apiKey)
 	{
 		$sql = "SELECT champion_image.Id, champion_image.Image, champion_information.ChampionKey FROM champion_image 
 			JOIN champion_information ON champion_image.Id = champion_information.Id 
@@ -14,22 +14,21 @@
 		{
 			$realmUrl = GetStaticInfoUrl("realm", "na", $apiKey);
 			$realmInfo = GetApiResults($realmUrl);
-				
+			
 			$versionUrl = GetStaticInfoUrl("versions", "na", $apiKey);
 			$versionInfo = GetApiResults($versionUrl);
 				
-			$currentVersion = $versionInfo[0];
-			$url = $realmInfo->{"cdn"};
+			$currentVersion = $versionInfo["json"][0];
+			$url = $realmInfo["json"]["cdn"];
 				
 			$urlForImages = $url . "/" . $currentVersion . "/img/champion/";
-				
-			$imageUrl = $urlForImages . $key . ".png";
+			$imageUrl = $urlForImages . $championKey . ".png";
 			
 			return AddChampionImage($conn, $championId, $imageUrl);
 		}
 
 		$imageData = $query->fetchAll();
-// 		print_r($imageData);
+		
 		return base64_encode($imageData[0]["Image"]);
 	}
 	
@@ -43,6 +42,6 @@
 		$query->bindValue(":image", $imageContents);
 		$query->execute();
 	
-		return $imageContents;
+		return base64_encode($imageContents);
 	}
 ?>

@@ -2,6 +2,8 @@
 class ChampionMastery
 {
 	private $ChampionId;
+	private $ChampionName;
+	private $ChampionKey;
 	private $ChampionLevel;
 	private $ChampionPoints;
 	private $ChampionPointsSinceLastLevel;
@@ -11,9 +13,11 @@ class ChampionMastery
 	private $LastPlayTime;
 	private $PlayerId;
 
-	public function __construct($championId, $level, $points, $pointsSinceLastLevel, $pointsUntilNextLevel, $chestGranted, $highestGrade, $lastPlayTime, $playerId)
+	public function __construct($championId, $championName, $championKey, $level, $points, $pointsSinceLastLevel, $pointsUntilNextLevel, $chestGranted, $highestGrade, $lastPlayTime, $playerId)
 	{
 		$this->ChampionId = $championId;
+		$this->ChampionName = $championName;
+		$this->ChampionKey = $championKey;
 		$this->ChampionLevel = $level;
 		$this->ChampionPoints = $points;
 		$this->ChampionPointsSinceLastLevel = $pointsSinceLastLevel;
@@ -27,6 +31,16 @@ class ChampionMastery
 	public function getChampionId()
 	{
 		return $this->ChampionId;
+	}
+	
+	public function getChampionName()
+	{
+		return $this->ChampionName;
+	}
+	
+	public function getChampionKey()
+	{
+		return $this->ChampionKey;
 	}
 
 	public function getChampionLevel()

@@ -14,6 +14,7 @@
 				<div class="header-links">
 					<a href="/">Home</a>
 					<a class="margin-left-20" href="/about.php">About</a>
+					<a class="margin-left-20" href="/contact.php">Contact</a>
 				</div>
 				<div class="main-title">Contact</div>
 				<div class="sub-title">Are they good...</div>
@@ -31,6 +32,10 @@
 						<div class="td-form-group">
 							<label class="td-form-label">Name (optional)</label>
 							<input class="td-form-control" type="text" name="queryName" placeholder="Your name" />
+						</div>
+						<div class="td-form-group">
+							<label class="td-form-label">Email (optional)</label>
+							<input class="td-form-control" type="text" name="queryEmail" placeholder="Your email" />
 						</div>
 						<div class="td-form-group">
 							<label class="td-form-label">Message</label>

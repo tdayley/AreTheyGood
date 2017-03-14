@@ -61,7 +61,7 @@ project.
 
 If you want to load this project directly into your own environment there are a few things you will have to add.
 * A file named private_variables.php placed in the variables folder. This should include the following variables:
-	1. `$apiKey = "asdfasdf-1234-1234-1234-asdfasdf` <- this should match the api key obtained from Riot
+	1. `$apiKey = "asdfasdf-1234-1234-1234-asdfasdf";` <- this should match the api key obtained from Riot
 	2. `$serverName = "localhost";` <- this should match your server name
 	3. `$databaseName = "aretheygood";` <- this is your database, named however you see fit
 	4. `$username = "root";` <- the username you use to login to your database engine
