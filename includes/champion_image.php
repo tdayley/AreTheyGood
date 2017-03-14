@@ -44,4 +44,17 @@
 	
 		return base64_encode($imageContents);
 	}
+	
+	function GetChampionImageUrl($conn, $championKey) 
+	{
+		$sql = "SELECT Version, Url FROM realm_version WHERE Id = (SELECT MAX(Id) FROM realm_version)";
+					
+		$query = $conn->prepare($sql);
+		$query->execute();
+		$realmInfo = $query->fetchAll();
+		
+		$urlForImages = $realmInfo[0]["Url"] . "/" . $realmInfo[0]["Version"] . "/img/champion/";
+		
+		return $urlForImages . $championKey . ".png";
+	}
 ?>
