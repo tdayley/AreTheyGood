@@ -1,7 +1,7 @@
 <?php include('includes/champion_image.php') ?>
 
 <?php
-	function CreateMasteryView($conn, $championMastery)
+	function CreateMasteryView($conn, $championMastery, $apiKey)
 	{
 		$view = "<div class='center'>";
 		
@@ -49,11 +49,10 @@
 			
 			$championLevel = $mastery->getChampionLevel();
 			
-			$html = str_replace("@image", GetChampionImage($conn, $mastery->getChampionId()), $html);
-// 			$html = str_replace("@championId", $mastery->getChampionId(), $html);
+			$html = str_replace("@image", GetChampionImage($conn, $mastery->getChampionId(), $mastery->getChampionKey(), $apiKey), $html);
 			$html = str_replace("@championLevel", $mastery->getChampionLevel(), $html);
 			$html = str_replace("@championPoints", number_format($mastery->getChampionPoints()), $html);
-			if($championLevel != 5)
+			if($championLevel != 7)
 			{
 				$html = str_replace("@pointsToLevel", "title='$pointsSinceLevel/$pointsNeededToLevel'", $html);
 				$html = str_replace("@levelColor", "", $html);

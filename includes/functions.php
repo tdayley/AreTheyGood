@@ -223,7 +223,10 @@
 	
 	function GetChampionMastery($conn, $summonerId)
 	{
-		$query = "SELECT * FROM champion_mastery WHERE PlayerId = :id ORDER BY ChampionPoints DESC";
+		$query = "SELECT a.*, b.Name AS ChampionName, b.ChampionKey 
+				FROM champion_mastery a 
+				JOIN champion_information b ON a.ChampionId=b.Id 
+				WHERE PlayerId = :id ORDER BY ChampionPoints DESC";
 	
 		$masteryInformation = $conn->prepare($query);
 		$masteryInformation->bindValue(":id", $summonerId);
@@ -232,7 +235,7 @@
 	
 		$championMastery = array();
 		foreach($masteryInformation->fetchAll() as $row) {
-			array_push($championMastery, new ChampionMastery($row["ChampionId"], $row["ChampionLevel"], $row["ChampionPoints"], $row["ChampionPointsSinceLastLevel"],
+			array_push($championMastery, new ChampionMastery($row["ChampionId"], $row["ChampionName"], $row["ChampionKey"], $row["ChampionLevel"], $row["ChampionPoints"], $row["ChampionPointsSinceLastLevel"],
 					$row["ChampionPointsUntilNextLevel"], $row["ChestGranted"], $row["HighestGrade"], $row["LastPlayTime"], $row["PlayerId"]));
 		}
 	
@@ -266,5 +269,9 @@
 		);
 		header('Content-type: application/json');
 		echo json_encode($data);
+	}
+	
+	function CleanString($string) {
+		return preg_replace('/[^A-Za-z0-9]/', '', $string);
 	}
 ?>

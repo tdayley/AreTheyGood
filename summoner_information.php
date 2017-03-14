@@ -97,7 +97,7 @@
 	
 	$championMastery = GetChampionMastery($conn, $summonerId);
 	
-	$html = CreateMasteryView($conn, $championMastery);
+	$html = CreateMasteryView($conn, $championMastery, $apiKey);
 	
 	$masteriesUpdatedHtml = $masteriesUpdated ? "<div class='mastery-header-update'>Masteries were just updated</div>" : 
 		"<div class='mastery-header-update'>Masteries were updated $lastSearched</div>";

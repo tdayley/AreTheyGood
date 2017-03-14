@@ -1,6 +1,7 @@
 <?php include('variables/private_variables.php'); ?>
 <?php include('includes/sql_connection.php'); ?>
 <?php include('includes/champion_image.php'); ?>
+<?php include('includes/functions.php') ?>
 
 	<div class="container-fluid">
 		<?php 
@@ -130,15 +131,6 @@
 						}
 					}
 					
-					function GetApiResults($url) 
-					{
-						$response = file_get_contents($url);
-						
-						$response = json_decode($response);
-						
-						return $response;
-					}
-					
 					function HaveMostRecentRealmVersion($conn, $version)
 					{
 						$query = "SELECT Version FROM realm_version WHERE Id = (SELECT MAX(Id) FROM realm_version)";
@@ -163,12 +155,12 @@
 					
 					function UpdateChampionInfo($conn, $championInfo)
 					{
-						foreach($championInfo->{"data"} as $champion)
+						foreach($championInfo["data"] as $champion)
 						{
 							$sql = "SELECT COUNT(1) FROM champion_information WHERE Id = :id";
 							
 							$query = $conn->prepare($sql);
-							$query->bindValue(":id", $champion->{"id"});
+							$query->bindValue(":id", $champion["id"]);
 							$query->execute();
 							$count = $query->fetchColumn();
 							
@@ -177,28 +169,14 @@
 								$sql = "INSERT INTO champion_information(Id, Name, Title, ChampionKey) VALUES (:id, :name, :title, :championKey)";
 								
 								$query = $conn->prepare($sql);
-								$query->bindValue(":id", $champion->{"id"});
-								$query->bindValue(":name", $champion->{"name"});
-								$query->bindValue(":title", $champion->{"title"});
-								$query->bindValue(":championKey", $champion->{"key"});
+								$query->bindValue(":id", $champion["id"]);
+								$query->bindValue(":name", $champion["name"]);
+								$query->bindValue(":title", $champion["title"]);
+								$query->bindValue(":championKey", $champion["key"]);
 								$query->execute();
 							}
 						}
-					}
-					
-					function GetStaticInfoUrl($type, $region, $apiKey, $id=NULL)
-					{
-						if(NULL === $id)
-						{
-							return "https://global.api.pvp.net/api/lol/static-data/" . strToLower($region) . "/v1.2/" . $type . "/" . $id . "?api_key=" . $apiKey;
-						}
-						
-						return "https://global.api.pvp.net/api/lol/static-data/" . strToLower($region) . "/v1.2/" . $type . "?api_key=" . $apiKey;
-					}
-					
-					
-					
-					
+					}					
 					
 					// TODO: Remove hardcoded "na" string and replace with chosen region from dropdown
 					$realmUrl = GetStaticInfoUrl("realm", "na", $apiKey);
@@ -210,19 +188,27 @@
 					$championUrl = GetStaticInfoUrl("champion", "na", $apiKey);
 					$championInfo = GetApiResults($championUrl);
 					
-					$currentVersion = $versionInfo[0];
-					$url = $realmInfo->{"cdn"};
+					$currentVersion = $versionInfo["json"][0];
+					$url = $realmInfo["json"]["cdn"];
 					
 					if(!HaveMostRecentRealmVersion($conn, $currentVersion))
 					{
 						UpdateVersionInfo($conn, $currentVersion, $url);
 					}
 					
-					UpdateChampionInfo($conn, $championInfo);
-	
-					$urlForImages = $url . "/" . $versionInfo[0] . "/img/champion/";
+					UpdateChampionInfo($conn, $championInfo["json"]);
 					
-					$sql = "SELECT DISTINCT(a.ChampionId), d.Name as ChampionName, e.Image, a.ChampionPoints, c.Name as SummonerName FROM champion_mastery a 
+					// Get averages
+					$sql = "SELECT a.ChampionId, d.Name as ChampionName, ROUND(AVG(a.ChampionPoints), 0) as AveragePoints FROM champion_mastery a 
+							JOIN champion_information d on a.ChampionId = d.Id
+							JOIN champion_image e on d.Id = e.Id
+						    GROUP BY a.ChampionId";
+					
+					$query = $conn->prepare($sql);
+					$query->execute();
+					$averageData = $query->fetchAll();
+					
+					$sql = "SELECT a.ChampionId, d.Name as ChampionName, e.Image, a.ChampionPoints, c.Name as SummonerName FROM champion_mastery a 
 							JOIN summoner_information c ON a.PlayerId = c.Id 
 							JOIN champion_information d on a.ChampionId = d.Id
 							JOIN champion_image e on d.Id = e.Id
@@ -244,10 +230,22 @@
 						$championPoints = $champion["ChampionPoints"];
 						$summonerName = $champion["SummonerName"];
 						
+						$averagePoints = "";
+						foreach($averageData as $averageChamp)
+						{
+							if (in_array($championId, $averageChamp))
+							{
+								$averagePoints = $averageChamp["AveragePoints"];
+								break;
+							}
+						}
+						
 						echo "<div class='champion-id'>
 								<img alt='$championName' class='logo' src=\"data:image/jpeg;base64," . base64_encode($image) . "\" />
-								<div class='top-summoner-name'>$summonerName</div>
+								<div class='top-summoner-name' title='$summonerName'>$summonerName</div>
 								<div class='top-summoner-points'>" . number_format($championPoints) . "</div>
+								<hr class='top-summoner-break'>
+								<div class='top-summoner-points'><strong>Avg</strong> " . number_format($averagePoints) . "</div>
 								</div>";
 					}
 					
