@@ -7,10 +7,7 @@
 	</head>
 	<body>
 		<div class="header">
-			<div class="header-image">
-				<img class="logo" src="/images/AreTheyGoodLogo_Small.png" 
-					srcset="images/AreTheyGoodLogo_Large.png 1024w, images/AreTheyGoodLogo_Medium.png 640w, images/AreTheyGoodLogo_Small.png 320w" alt="Are they good" />
-			</div>
+			<?php include('includes/logo.html'); ?>
 			<div class="header-title">
 				<div class="header-links">
 					<a href="/">Home</a>
