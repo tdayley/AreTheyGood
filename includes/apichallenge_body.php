@@ -199,20 +199,16 @@
 					UpdateChampionInfo($conn, $championInfo["json"]);
 					
 					// Get averages
-					$sql = "SELECT a.ChampionId, d.Name as ChampionName, ROUND(AVG(a.ChampionPoints), 0) as AveragePoints FROM champion_mastery a 
-							JOIN champion_information d on a.ChampionId = d.Id
-							JOIN champion_image e on d.Id = e.Id
-						    GROUP BY a.ChampionId";
+					$sql = "SELECT ChampionId, ROUND(AVG(ChampionPoints), 0) as AveragePoints FROM champion_mastery GROUP BY ChampionId";
 					
 					$query = $conn->prepare($sql);
 					$query->execute();
 					$averageData = $query->fetchAll();
 					
-					$sql = "SELECT a.ChampionId, d.Name as ChampionName, e.Image, a.ChampionPoints, c.Name as SummonerName, d.ChampionKey 
+					$sql = "SELECT a.ChampionId, d.Name as ChampionName, a.ChampionPoints, c.Name as SummonerName, d.ChampionKey 
 							FROM champion_mastery a 
 							JOIN summoner_information c ON a.PlayerId = c.Id 
 							JOIN champion_information d on a.ChampionId = d.Id
-							JOIN champion_image e on d.Id = e.Id
 							WHERE a.ChampionPoints = (SELECT MAX(b.ChampionPoints) FROM champion_mastery b WHERE b.ChampionId = a.ChampionId) 
 							ORDER BY d.Name";
 					
@@ -231,7 +227,7 @@
 						$championPoints = $champion["ChampionPoints"];
 						$summonerName = $champion["SummonerName"];
 						
-						$averagePoints = "";
+						$averagePoints = 0;
 						foreach($averageData as $averageChamp)
 						{
 							if (in_array($championId, $averageChamp))
