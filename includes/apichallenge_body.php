@@ -238,7 +238,16 @@
 						}
 						
 						echo "<div class='champion-id'>
-								<img alt='$championName' class='logo' src=\"" . $image . "\" />
+								<div class='image-overlay image-simple'>
+									<img class='overlay-img-main' src=\"" . $image . "\" alt='$championName'>
+									<div class='image-overlay-box'>
+										<div class='image-overlay-data'>
+											<span class='image-white'>
+												$championName
+											</span>
+										</div>
+									</div>
+								</div>
 								<div class='top-summoner-name' title='$summonerName'>$summonerName</div>
 								<div class='top-summoner-points'>" . number_format($championPoints) . "</div>
 								<hr class='top-summoner-break'>

@@ -1,0 +1,52 @@
+.image-overlay {
+    position: relative;
+    overflow: hidden;
+    perspective: 300px;
+    -webkit-perspective: 300px;
+    -ms-perspective: 300px;
+    -o-perspective: 300px;
+}
+
+.image-overlay .overlay-img-main {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.image-simple .image-overlay-box {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    opacity: 0;
+    background: rgba(27,27,27,.7);
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+}
+
+.image-overlay-box:hover {
+  opacity: 1;
+}
+
+.image-overlay-data {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.image-overlay span {
+    display: inline-block;
+    position: relative;
+    top: 40%;
+}
+
+.image-overlay span {
+    text-align: center;
+    font-size: 1.7em;
+}
+.image-white {
+    color: #ffffff;
+}

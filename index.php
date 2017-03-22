@@ -8,6 +8,7 @@
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 		
 		<link rel="stylesheet" type="text/css" href="/stylesheets/apichallenge.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/stylesheets/imageoverlay.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="/stylesheets/circle.css" media="screen" />
 		
 		<title>Are they good...</title>
